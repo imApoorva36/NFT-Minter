@@ -1,5 +1,5 @@
 # NFT-Minter
-This is a Repository for the Web Enthusiasts Club's GDSC Recruitment
+This is a Repository for the Web Enthusiasts Club's Recruitment
 
 ## How to run the file ( run below commands after cloning this repository)
 - `cd frontend`

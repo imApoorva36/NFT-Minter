@@ -13,7 +13,7 @@ const config = {
 // Function to update the image URI for a specific token
 async function updateTokenImage(tokenId, newImageURI) {
     const [deployer] = await ethers.getSigners();
-    const contractAddress = "0x8877019DB783E175b98f32660aFe323F03333242"; // Replace with your deployed contract address
+    const contractAddress = "0x2705505b14D907FF05C92148dd8d17bCEF85602E"; // Replace with your deployed contract address
 
     // Load the contract ABI from the JSON file
     const abiFile = "C:/Users/apoor/OneDrive/Desktop/my-nft2/artifacts/contracts/MyNFT.sol/myNFT.json";
@@ -23,25 +23,13 @@ async function updateTokenImage(tokenId, newImageURI) {
     const nftContract = new ethers.Contract(contractAddress, abi, deployer);
 
     console.log("Updating NFT image...");
-
     // Call the custom 'updateTokenURI' function
     const tx = await nftContract.updateTokenURI(tokenId, newImageURI);
-    
     // Print the transaction hash
     console.log("NFT image updated successfully. Transaction Hash:", tx.hash);
-
-    // Replace 'previousImageCID' with the actual CID of the previous image you want to remove
-    // const previousImageCID = prevcid;
-
-    // // Remove the previous image from IPFS
-    // await removeImageFromIPFS(previousImageCID);
-
-
     console.log("Now uploading swapped image to IPFS...");
-    
     const imageFilePathlocal = newImageURI;
     await uploadImageToIPFS(imageFilePathlocal);
-    // const imageURI = `https://gateway.pinata.cloud/ipfs/${await uploadImageToIPFS(imageFilePath)}`;
 }
 
 async function uploadImageToIPFS(imageFilePath) {

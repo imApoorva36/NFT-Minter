@@ -1,0 +1,30 @@
+.App {
+  text-align: center;
+  margin: 20px;
+  background: linear-gradient(#41ff33, #0055ff); /* Adjust colors as needed */
+}
+
+h1 {
+  color: #007bff;
+  font-weight: 800;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.buttons {
+  background-color: #ff6a00; /* Button background color */
+  color: white; /* Button text color */
+  border: none;
+  padding: 10px 20px; /* Adjust padding as needed */
+  cursor: pointer;
+  padding: 10px;
+  border-color: black;
+  margin-right: 10px; 
+  justify-content: center;
+}
+
+.buttons:hover {
+  background-color: #00b321; /* Change color on hover */
+}

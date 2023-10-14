@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "scripts/*": ["../../scripts/*"]
+    }
+  },
+  "include": ["nft-fronetend/src", "scripts"]
+}

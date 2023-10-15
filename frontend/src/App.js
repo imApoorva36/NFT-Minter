@@ -162,28 +162,39 @@ function App() {
       <h1>NFT MINTER</h1>
       <Form>
         <Form.Group className="form-group">
-          <Form.Label>Token ID (for <strong>updating NFT Image</strong> of previously created token(NFT) ): </Form.Label>
-          <Form.Control
+        <div class="mb-3">
+          <Form.Label class="form-label" >Token ID :</Form.Label>
+          <div class="col-sm-10">
+          <Form.Control class="form-control"
             type="number"
-            placeholder="Enter Token ID"
+            placeholder="Enter Token ID For updating NFT Image of previously created token(NFT)"
             value={tokenId}
             onChange={(e) => setTokenId(e.target.value)}
           />
+          </div>
+        </div>
         </Form.Group>
-        <Form.Group className="form-group">
-          <Form.Label>Select Image: </Form.Label>
-          <Form.Control
+        <Form.Group class="form-group">
+        <div class="mb-3">
+          <Form.Label for="formFile" class="form-label">Select <strong>Image</strong> for Upload</Form.Label>
+          <Form.Control class="form-control"  id="formFile" aria-describedby="inputGroupFileAddon04" aria-label="Upload"
             type="file"
             onChange={(e) => setNewImage(e.target.files[0])}
           />
+          
+        </div>
+        
         </Form.Group>
       </Form>
-        <Button variant="primary" onClick={handleMint} className="buttons">
+      <div className="buttons">
+        <Button variant="primary" onClick={handleMint} className="btn btn-primary">
           <strong>Mint</strong> NFT
         </Button>
-        <Button variant="success" onClick={handleUpdateImage} className="buttons">
+        <Button variant="success" onClick={handleUpdateImage} className="btn btn-primary">
           <strong>Update</strong> NFT Image
         </Button>
+      </div>
+        
     </div>
   );
 }

@@ -19,7 +19,7 @@ const config = {
 function App() {
   const [web3, setWeb3] = useState(null);
   const [accounts, setAccounts] = useState([]);
-  const contractAddress = "0x2705505b14D907FF05C92148dd8d17bCEF85602E";
+  const contractAddress = "0x0E14F51c4c2B72Fd6e57448328D314B1C9b03206";
   const alchemyUrl = 'https://eth-sepolia.g.alchemy.com/v2/oAuuaMa3QmytELmS_EKjPWSegTL9vN09'; // Replace with your Alchemy API URL
 
   // const privateKey = "87302a1444704e71fe0b06c9deb63840c64d912dc8de1fe953d5518dd273566a"
@@ -49,23 +49,20 @@ function App() {
         console.error("MetaMask is not installed");
       }
     }
-
     initWeb3();
   }, []);
 
   const handleMint = async () => {
     if (web3 && accounts.length > 0 && newImage) {
-      const formData = new FormData();
-      formData.append("file", newImage);
-
       try {
+        const formData = new FormData();
+        formData.append("file", newImage);
         const headers = {
           'pinata_api_key': config.apiKey,
           'pinata_secret_api_key': config.apiSecret,
           'Content-Type': 'multipart/form-data',
       };
         delete headers['Content-Type'];
-            
         const response = await axios.post(`${config.pinataBaseURL}/pinning/pinFileToIPFS`, formData, {
             headers: {
               'pinata_api_key': config.PINATA_API_KEY,
@@ -79,14 +76,19 @@ function App() {
             console.log(`Image uploaded to IPFS with CID: ${response.data.IpfsHash}`);
             alert('Image is uploaded to IPFS, wait for NFT to be minted...')
             const imageURI = `https://gateway.pinata.cloud/ipfs/${response.data.IpfsHash}`;
-            const tx = await nftContract.mintWithURI(imageURI, {
-              gasPrice: ethers.utils.parseUnits('50', 'gwei'),
-              gasLimit: 2000000,
+            const tx = await nftContract.populateTransaction.mintWithURI(imageURI);
+            tx.to=contractAddress;
+            const transactionParameters = {
+              from: accounts[0],
+              to: tx.to,
+              data: tx.data,
+            };
+            const txHash = await window.ethereum.request({
+              method: 'eth_sendTransaction',
+              params: [transactionParameters],
             });
-            await tx.wait();
+            console.log("Transaction Hash: " ,txHash);
             alert("NFT minted successfully!");
-             console.log(tx);
-            // prevcid=response.data.IpfsHash;
             return response.data.IpfsHash;
         } else {
             console.error('Error uploading image to IPFS:');
@@ -94,10 +96,8 @@ function App() {
             console.error('Response data:', response.data);
             process.exit(1);
         }
-
-        
       } catch (error) {
-        console.error("E  rror minting NFT:", error);
+        console.error("Error minting NFT:", error);
       }
     } else {
       alert("Please select an image to mint.");
@@ -108,31 +108,33 @@ function App() {
     if (tokenId && newImage) {
       const formData = new FormData();
       formData.append("file", newImage);
-  
       try {
-        // Upload the new image to IPFS
         const headers = {
           'pinata_api_key': config.PINATA_API_KEY,
           'pinata_secret_api_key': config.PINATA_API_SECRET,
         };
-  
         const response = await axios.post(`${config.pinataBaseURL}/pinning/pinFileToIPFS`, formData, {
           headers,
           maxContentLength: Infinity,
         });
-  
         if (response.status === 200 && response.data.IpfsHash) {
           console.log(`Image uploaded to IPFS with CID: ${response.data.IpfsHash}`);
           const newImageURI = `https://gateway.pinata.cloud/ipfs/${response.data.IpfsHash}`;
-  
-          // Update the NFT's image URI using the provided tokenId
-          const tx = await nftContract.updateTokenURI(tokenId, newImageURI, {
-            gasPrice: ethers.utils.parseUnits('50', 'gwei'),
-            gasLimit: 2000000,
+          alert("New Image Uploaded to IPFS, approve Transaction to update Image in NFT")
+          const tx = await nftContract.updateTokenURI(tokenId, newImageURI);
+          const transactionParameters = {
+            from: accounts[0],
+            to: nftContract.address,
+            data: tx.data,
+            gasPrice: ethers.utils.parseUnits('50', 'gwei').toString(),
+          };
+          const txHash = await window.ethereum.request({
+            method: 'eth_sendTransaction',
+            params: [transactionParameters],
           });
-          await tx.wait();
-          console.log("NFT image updated successfully. Transaction Hash:", tx.hash);
+          console.log("Transaction Hash: ", txHash);
           alert("NFT image updated successfully!");
+
         } else {
           console.error('Error uploading image to IPFS:');
           console.error('Response status:', response.status);

@@ -1583,8 +1583,8 @@
       ]
     },
     "C:\\Users\\apoor\\OneDrive\\Desktop\\NFT-Minter\\contracts\\MyNFT.sol": {
-      "lastModificationDate": 1697279633725,
-      "contentHash": "0a21638373c1d78ebc86d2d545cb3f21",
+      "lastModificationDate": 1697478689773,
+      "contentHash": "431f47313ab233b982afc2a5d52f94dd",
       "sourceName": "contracts/MyNFT.sol",
       "solcConfig": {
         "version": "0.8.0",
@@ -1612,7 +1612,6 @@
       "imports": [
         "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol",
         "@openzeppelin/contracts/token/ERC721/ERC721.sol",
-        "@openzeppelin/contracts/access/Ownable.sol",
         "@openzeppelin/contracts/utils/Strings.sol",
         "@openzeppelin/contracts/utils/Counters.sol"
       ],

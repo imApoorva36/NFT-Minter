@@ -53,7 +53,11 @@ function App() {
   }, []);
 
   const handleMint = async () => {
-    if (web3 && accounts.length > 0 && newImage) {
+    if (web3 && accounts.length > 0) {
+      if (!newImage) {
+        alert("Please select an image to mint.");
+        return; // Exit the function if no image is selected
+      }
       try {
         const formData = new FormData();
         formData.append("file", newImage);
@@ -105,7 +109,16 @@ function App() {
   };
 
   const handleUpdateImage = async () => {
-    if (tokenId && newImage) {
+    if (tokenId) {
+      if (!newImage) {
+        alert("Please select an image to update.");
+        return; // Exit the function if no image is selected
+      }
+      
+      if (!tokenId) {
+        alert("Please provide a valid token ID to update.");
+        return; // Exit the function if no token ID is provided
+      }
       const formData = new FormData();
       formData.append("file", newImage);
       try {
@@ -126,7 +139,7 @@ function App() {
             from: accounts[0],
             to: nftContract.address,
             data: tx.data,
-            gasPrice: ethers.utils.parseUnits('50', 'gwei').toString(),
+            gasPrice: ethers.utils.parseUnits('10', 'gwei').toString(),
           };
           const txHash = await window.ethereum.request({
             method: 'eth_sendTransaction',

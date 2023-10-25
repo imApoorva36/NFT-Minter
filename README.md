@@ -1,11 +1,20 @@
 # NFT-Minter
-This is a Repository for the Web Enthusiasts Club's Recruitment
+This is a Repository for the Web Enthusiasts Club's Recruitment `(By : Apoorva Agrawal ( 221EC207 ))`
+---
+### How to run this repository's code
+- Firstly clone this repository
+  
+      git clone https://github.com/imApoorva36/NFT-Minter.git
+- Then Execute below commands inside the cloned repository
 
-## How to run the file ( run below commands after cloning this repository)
-- `cd frontend`
-- `npm i`
-- `npm start`
-
+       cd frontend
+  <br>
+  
+       npm i
+  <br>
+  
+       npm start
+---
 #### Now your react app opens on localhost:3000 and you can upload an image and mint your NFT by uploading image and clicking on mint NFT and wait for browser alerts
 #### If you want to update your prev NFT Image , then you can upload new image and specify previous token's id number and then click on Update NFT Image and wait for browser alerts
 ---

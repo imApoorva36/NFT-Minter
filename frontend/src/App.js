@@ -7,24 +7,24 @@ import axios from "axios";
 const contractABI = require('./MyNFT.sol/MyNFT.json').abi;
 
 const config = {
-  apiKey: 'd905c68e6f823e95baba', // Replace with your Pinata API Key
-  apiSecret: '8c244069b32f6b71ba3e75e0de7f56d9b89c626a113f397573aa9c7089403613', // Replace with your Pinata API Secret
+  apiKey: 'd9...', // Replace with your Pinata API Key
+  apiSecret: '8c...', // Replace with your Pinata API Secret
   pinataBaseURL: "https://api.pinata.cloud",
-  API_URL : "https://eth-sepolia.g.alchemy.com/v2/oAuuaMa3QmytELmS_EKjPWSegTL9vN09",
-  PRIVATE_KEY : "87302a1444704e71fe0b06c9deb63840c64d912dc8de1fe953d5518dd273566a",
-  PINATA_API_KEY:'26424a41fb17a5f2c416',
-  PINATA_API_SECRET:'9cb79431e6f23e62050d7e81aeea038fb352e3e2c3d80f11f9a144174beb8a97'
+  API_URL : "https://eth-sepolia.g.alchemy.com/...",
+  PRIVATE_KEY : "87...",
+  PINATA_API_KEY:'26...',
+  PINATA_API_SECRET:'9c...'
 };
 
 function App() {
   const [web3, setWeb3] = useState(null);
   const [accounts, setAccounts] = useState([]);
-  const contractAddress = "0x0E14F51c4c2B72Fd6e57448328D314B1C9b03206";
-  const alchemyUrl = 'https://eth-sepolia.g.alchemy.com/v2/oAuuaMa3QmytELmS_EKjPWSegTL9vN09'; // Replace with your Alchemy API URL
+  const contractAddress = "0x0...";
+  const alchemyUrl = 'https://eth-sepolia.g.alchemy.com/...'; // Replace with your Alchemy API URL
 
   // const privateKey = "87302a1444704e71fe0b06c9deb63840c64d912dc8de1fe953d5518dd273566a"
   const provider = new ethers.providers.JsonRpcProvider(alchemyUrl);
-  const wallet = new ethers.Wallet("87302a1444704e71fe0b06c9deb63840c64d912dc8de1fe953d5518dd273566a", provider);
+  const wallet = new ethers.Wallet("87...", provider);
   const nftContract = new ethers.Contract(contractAddress, contractABI, wallet);
 
   const [tokenId, setTokenId] = useState("");
